@@ -1,0 +1,205 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0">
+  <diagram id="medicare_usecase_balanced" name="Usecase Tổng Quát 2 Bên">
+    <mxGraphModel dx="2162" dy="972" grid="0" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="920" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="cell_2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="840" width="880" x="110" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cell_3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;align=center;fillColor=#FFFFFF;strokeColor=#000000;fontSize=12;fontFamily=Helvetica;" value="HỆ THỐNG QUẢN LÝ VÀ ĐIỀU PHỐI KHÁM BỆNH (MEDICARE)" vertex="1">
+          <mxGeometry height="38" width="400" x="350" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="actor_4" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=11;fontStyle=1;fontFamily=Helvetica;" value="Bệnh nhân" vertex="1">
+          <mxGeometry height="70" width="35" x="30" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="actor_5" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=11;fontStyle=1;fontFamily=Helvetica;" value="Nhân viên tiếp nhận" vertex="1">
+          <mxGeometry height="70" width="35" x="20" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="actor_6" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=11;fontStyle=1;fontFamily=Helvetica;" value="Bác sĩ &amp; KTV" vertex="1">
+          <mxGeometry height="70" width="35" x="1025" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="actor_7" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=11;fontStyle=1;fontFamily=Helvetica;" value="Quản trị viên" vertex="1">
+          <mxGeometry height="70" width="35" x="1025" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_8" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Đăng nhập" vertex="1">
+          <mxGeometry height="48" width="120" x="490" y="463" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_9" edge="1" parent="1" source="actor_4" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_8" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_10" edge="1" parent="1" source="actor_5" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_8" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_11" edge="1" parent="1" source="actor_6" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_8" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_12" edge="1" parent="1" source="actor_7" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_8" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_13" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Cập nhật thông tin cá nhân" vertex="1">
+          <mxGeometry height="44" width="140" x="140" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_14" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Xem gợi ý dịch vụ &amp; khám" vertex="1">
+          <mxGeometry height="44" width="140" x="140" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_15" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Xem chi tiết chuyên khoa" vertex="1">
+          <mxGeometry height="44" width="135" x="380" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_16" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Đặt lịch khám trực tuyến" vertex="1">
+          <mxGeometry height="44" width="140" x="140" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_17" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Theo dõi hàng đợi trực tuyến" vertex="1">
+          <mxGeometry height="44" width="145" x="140" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_18" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Xem lịch sử khám bệnh" vertex="1">
+          <mxGeometry height="44" width="135" x="140" y="355" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_19" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Xem chi tiết đơn &amp; kết quả" vertex="1">
+          <mxGeometry height="44" width="140" x="285" y="428" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_20" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Đăng ký tài khoản" vertex="1">
+          <mxGeometry height="44" width="130" x="120" y="419" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_21" edge="1" parent="1" source="actor_4" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_13" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_22" edge="1" parent="1" source="actor_4" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_14" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_23" edge="1" parent="1" source="uc_15" style="endArrow=open;dashed=1;html=1;endFill=0;rounded=0;strokeColor=#000000;fontSize=10;fontFamily=Helvetica;" target="uc_14" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_24" edge="1" parent="1" source="actor_4" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_16" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_25" edge="1" parent="1" source="actor_4" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_17" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_26" edge="1" parent="1" source="actor_4" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_18" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_27" edge="1" parent="1" source="uc_19" style="endArrow=open;dashed=1;html=1;endFill=0;rounded=0;strokeColor=#000000;fontSize=10;fontFamily=Helvetica;" target="uc_18" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_28" edge="1" parent="1" source="actor_4" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_20" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_29" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Tiếp đón &amp; ghi nhận sinh hiệu" vertex="1">
+          <mxGeometry height="44" width="145" x="130" y="552" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_30" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Phân loại khẩn cấp (Triage)" vertex="1">
+          <mxGeometry height="44" width="140" x="300" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_31" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Cấp số thứ tự khám bệnh" vertex="1">
+          <mxGeometry height="44" width="140" x="140" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_32" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Thu viện phí tại quầy" vertex="1">
+          <mxGeometry height="44" width="135" x="140" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_33" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="In hóa đơn viện phí" vertex="1">
+          <mxGeometry height="44" width="130" x="315" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_34" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Thanh toán quét mã VietQR" vertex="1">
+          <mxGeometry height="44" width="145" x="140" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_35" edge="1" parent="1" source="actor_5" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_29" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_36" edge="1" parent="1" source="uc_29" style="endArrow=open;dashed=1;html=1;endFill=0;rounded=0;strokeColor=#000000;fontSize=10;fontFamily=Helvetica;" target="uc_30" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_37" edge="1" parent="1" source="actor_5" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_31" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_38" edge="1" parent="1" source="actor_5" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_32" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_39" edge="1" parent="1" source="uc_33" style="endArrow=open;dashed=1;html=1;endFill=0;rounded=0;strokeColor=#000000;fontSize=10;fontFamily=Helvetica;" target="uc_32" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_40" edge="1" parent="1" source="actor_5" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_34" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_41" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Gọi số &amp; điều phối hàng đợi" vertex="1">
+          <mxGeometry height="44" width="150" x="820" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_42" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Khám bệnh &amp; chẩn đoán ICD-10" vertex="1">
+          <mxGeometry height="44" width="155" x="820" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_43" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Chỉ định xét nghiệm" vertex="1">
+          <mxGeometry height="44" width="135" x="595" y="166" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_44" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Kê đơn thuốc điện tử" vertex="1">
+          <mxGeometry height="44" width="140" x="820" y="235" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_45" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Cảnh báo tương tác thuốc" vertex="1">
+          <mxGeometry height="44" width="145" x="585" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_46" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Xem kết quả xét nghiệm gửi về" vertex="1">
+          <mxGeometry height="44" width="155" x="820" y="305" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_47" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Nhập kết quả xét nghiệm định lượng" vertex="1">
+          <mxGeometry height="44" width="165" x="815" y="375" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_48" edge="1" parent="1" source="actor_6" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_41" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_49" edge="1" parent="1" source="actor_6" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_42" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_50" edge="1" parent="1" source="uc_42" style="endArrow=open;dashed=1;html=1;endFill=0;rounded=0;strokeColor=#000000;fontSize=10;fontFamily=Helvetica;" target="uc_43" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_51" edge="1" parent="1" source="actor_6" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_44" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_52" edge="1" parent="1" source="uc_44" style="endArrow=open;dashed=1;html=1;endFill=0;rounded=0;strokeColor=#000000;fontSize=10;fontFamily=Helvetica;" target="uc_45" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_53" edge="1" parent="1" source="actor_6" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_46" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_54" edge="1" parent="1" source="actor_6" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_47" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_55" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Kiểm tra &amp; làm sạch dữ liệu khám" vertex="1">
+          <mxGeometry height="44" width="160" x="570" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_56" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Quản lý danh mục khoa &amp; phòng" vertex="1">
+          <mxGeometry height="44" width="160" x="815" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_57" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Phân quyền truy cập (RBAC)" vertex="1">
+          <mxGeometry height="44" width="150" x="585" y="684" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_58" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Quản lý người dùng" vertex="1">
+          <mxGeometry height="44" width="140" x="820" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_59" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Quản lý danh mục thuốc &amp; bảng giá" vertex="1">
+          <mxGeometry height="44" width="180" x="790" y="730" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_60" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fillColor=#FFFFFF;strokeColor=#000000;" value="Theo dõi hiệu suất vận hành hệ thống" vertex="1">
+          <mxGeometry height="44" width="185" x="780" y="800" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_61" edge="1" parent="1" source="actor_7" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_56" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_62" edge="1" parent="1" source="uc_56" style="endArrow=open;dashed=1;html=1;endFill=0;rounded=0;strokeColor=#000000;fontSize=10;fontFamily=Helvetica;" target="uc_55" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_63" edge="1" parent="1" source="actor_7" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_58" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_64" edge="1" parent="1" source="uc_58" style="endArrow=open;dashed=1;html=1;endFill=0;rounded=0;strokeColor=#000000;fontSize=10;fontFamily=Helvetica;" target="uc_57" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_65" edge="1" parent="1" source="actor_7" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_59" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_66" edge="1" parent="1" source="actor_7" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;edgeStyle=straight;" target="uc_60" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

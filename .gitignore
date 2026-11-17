@@ -1,0 +1,43 @@
+# Dependencies & Build Artifacts
+node_modules/
+frontend/node_modules/
+frontend/dist/
+backend/target/
+uploads/
+backend/uploads/
+
+# Mobile & Flutter
+mobile/.dart_tool/
+mobile/build/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.idea/
+mobile/*.iml
+mobile/android/.gradle/
+mobile/android/local.properties
+mobile/android/app/build/
+mobile/android/.kotlin/
+mobile/ios/.symlinks/
+mobile/ios/Pods/
+mobile/ios/Flutter/ephemeral/
+mobile/macos/Flutter/ephemeral/
+mobile/linux/flutter/ephemeral/
+
+# Tools & Local heavy binaries
+tools/
+
+# Environment & Local Secrets
+.env
+.env.local
+.env.*.local
+
+# Python cache
+__pycache__/
+*.pyc
+
+# IDE & OS Files
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+*.log

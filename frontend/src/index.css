@@ -1,0 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Custom nicer scrollbar for content areas */
+  .custom-scrollbar::-webkit-scrollbar,
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb,
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 rounded-full;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover,
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400;
+  }
+}
+
+/* Print styles: Isolate printable medical sheets cleanly */
+@media print {
+  html, body, #root {
+    background-color: white !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Hide app chrome, navigation, sidebars, floating docks & print:hidden elements */
+  .print\:hidden,
+  aside,
+  header,
+  footer,
+  nav {
+    display: none !important;
+  }
+
+  /* If a printable medical modal is open, hide everything outside it and print only the sheet */
+  body:has(#printable-prescription, #printable-receipt, #printable-queue-slip, #printable-ticket) * {
+    visibility: hidden !important;
+  }
+
+  #printable-prescription,
+  #printable-prescription *,
+  #printable-receipt,
+  #printable-receipt *,
+  #printable-queue-slip,
+  #printable-queue-slip *,
+  #printable-ticket,
+  #printable-ticket * {
+    visibility: visible !important;
+  }
+
+  #printable-prescription,
+  #printable-receipt,
+  #printable-queue-slip,
+  #printable-ticket {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 12mm !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: white !important;
+  }
+
+  .print\:shadow-none {
+    box-shadow: none !important;
+  }
+  .print\:border-black {
+    border-color: black !important;
+  }
+  .print\:bg-white {
+    background-color: white !important;
+  }
+  @page {
+    margin: 10mm;
+  }
+}
+
+/* Skeleton Loading Animation */
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(210, 20%, 86%);
+  }
+  100% {
+    background-color: hsl(210, 20%, 96%);
+  }
+}
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+/* Base custom animations */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .7; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    transform: scale(1);
+    text-shadow: 0 0 24px rgba(56, 189, 248, 0.35);
+  }
+  50% {
+    transform: scale(1.02);
+    text-shadow: 0 0 40px rgba(56, 189, 248, 0.7);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2.4s ease-in-out infinite;
+}
+
+/* React Hot Toast customization */
+.go3958317564 {
+  font-family: inherit !important;
+}
+
+/* Custom form inputs */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: 0.2s;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+/* Fix for lucide icons vertical alignment */
+svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* 3D Card Flip utilities & Next-Gen Micro-interactions */
+.perspective-1000 {
+  perspective: 1000px;
+}
+.transform-style-preserve-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
