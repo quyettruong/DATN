@@ -11,10 +11,10 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/benhvien}
-    driver-class-name: org.postgresql.Driver
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:123}
+    url: ${DB_URL:jdbc:sqlserver://127.0.0.1:14333;databaseName=benhvien;encrypt=true;trustServerCertificate=true}
+    driver-class-name: ${DB_DRIVER:com.microsoft.sqlserver.jdbc.SQLServerDriver}
+    username: ${DB_USERNAME:hospital_user}
+    password: ${DB_PASSWORD:Hospital@123}
     hikari:
       maximum-pool-size: 15
       minimum-idle: 5
@@ -28,7 +28,7 @@ spring:
     properties:
       hibernate:
         format_sql: false
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.SQLServerDialect
         default_batch_fetch_size: 30
         jdbc:
           batch_size: 25
