@@ -9,7 +9,7 @@ Hệ thống thông tin bệnh viện thu nhỏ (**Mini HIS / EMR / Queue Manage
 | Tầng hệ thống | Công nghệ & Thư viện chính |
 | :--- | :--- |
 | **Backend API** | Java 17, Spring Boot 3.2.5, Spring Security 6 (JWT + RBAC), Spring Data JPA / Hibernate, Spring WebSocket, Springdoc OpenAPI (Swagger UI) |
-| **Cơ sở dữ liệu** | PostgreSQL (quản trị qua pgAdmin 4; hỗ trợ H2 In-Memory cho Unit Test độc lập) |
+| **Cơ sở dữ liệu** | Microsoft SQL Server (quản trị qua SSMS / Azure Data Studio; hỗ trợ H2 In-Memory cho Unit Test độc lập) |
 | **Frontend Web** | React 18, Vite 5 (Code-splitting & `React.lazy`), Zustand, Axios, Tailwind CSS, Recharts, Lucide Icons, `qrcode.react` |
 | **Mobile App (Bệnh nhân)** | Flutter 3.44, Dart 3.12, Provider, Material 3, `qr_flutter`, `shared_preferences`, `intl`, `http` |
 | **Kiểm thử tự động** | JUnit 5, Mockito, AssertJ (`18` kịch bản kiểm thử đơn vị cho các Service trọng yếu & bảo mật) |
@@ -41,11 +41,11 @@ Hệ thống thông tin bệnh viện thu nhỏ (**Mini HIS / EMR / Queue Manage
 ### Yêu cầu môi trường
 - **JDK 17+** và **Maven 3.9+** (đã tích hợp sẵn Maven portable tại `tools/apache-maven-3.9.6`)
 - **Node.js 18+** và **npm**
-- **PostgreSQL** và **pgAdmin 4**
+- **Microsoft SQL Server** (SSMS hoặc Azure Data Studio)
 
-### Bước 1: Chuẩn bị Cơ sở dữ liệu trên pgAdmin 4
-- Mở **pgAdmin 4**, kết nối vào PostgreSQL Server (`localhost:5432`) và tạo một database trống đặt tên là `benhvien`.
-- Mặc định hệ thống sử dụng tài khoản `postgres`, mật khẩu `123` cấu hình tại `backend/src/main/resources/application.yml` (có thể chỉnh trực tiếp hoặc truyền qua biến môi trường theo mẫu `.env.example`).
+### Bước 1: Chuẩn bị Cơ sở dữ liệu trên Microsoft SQL Server
+- Mở **SSMS** hoặc **Azure Data Studio**, kết nối vào SQL Server (`DESKTOP-KEMAOM8\SQLEXPRESS` hoặc `127.0.0.1,14333`) và tạo database trống đặt tên là `benhvien`.
+- Mặc định hệ thống sử dụng tài khoản `hospital_user`, mật khẩu `Hospital@123` cấu hình tại `backend/src/main/resources/application.yml` (hoặc tài khoản Windows Authentication).
 
 ### Bước 2: Khởi chạy Backend (Cổng `8080`)
 Khi chạy lần đầu, `DataSeeder` sẽ tự động khởi tạo đầy đủ 6 chuyên khoa, 12 phòng khám, 6 bác sĩ, bệnh nhân mẫu, danh mục thuốc/xét nghiệm, dữ liệu tương tác thuốc và lô tồn kho dược:
