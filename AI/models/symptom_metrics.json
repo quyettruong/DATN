@@ -1,0 +1,26 @@
+{
+  "dataset": "itachi9604/disease-symptom-description-dataset",
+  "total_samples": 4920,
+  "train_samples": 3936,
+  "test_samples": 984,
+  "unique_diseases": 41,
+  "unique_symptoms": 132,
+  "best_model": "MultinomialNB",
+  "comparison": [
+    {
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "name": "MultinomialNB"
+    },
+    {
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "name": "DecisionTree"
+    },
+    {
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "name": "RandomForest"
+    }
+  ]
+}

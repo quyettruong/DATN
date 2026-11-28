@@ -1,0 +1,67 @@
+{
+  "dataset": "joniarroba/noshowappointments",
+  "total_samples": 110521,
+  "train_samples": 88417,
+  "test_samples": 22104,
+  "noshow_rate": 0.2019,
+  "best_model": "RandomForest",
+  "comparison": [
+    {
+      "accuracy": 0.6155,
+      "precision": 0.3139,
+      "recall": 0.7629,
+      "f1": 0.4448,
+      "roc_auc": 0.7258,
+      "confusion_matrix": [
+        [
+          10200,
+          7441
+        ],
+        [
+          1058,
+          3405
+        ]
+      ],
+      "name": "DecisionTree",
+      "threshold": 0.53
+    },
+    {
+      "accuracy": 0.6315,
+      "precision": 0.322,
+      "recall": 0.7461,
+      "f1": 0.4498,
+      "roc_auc": 0.7352,
+      "confusion_matrix": [
+        [
+          10628,
+          7013
+        ],
+        [
+          1133,
+          3330
+        ]
+      ],
+      "name": "RandomForest",
+      "threshold": 0.53
+    },
+    {
+      "accuracy": 0.6123,
+      "precision": 0.315,
+      "recall": 0.7836,
+      "f1": 0.4494,
+      "roc_auc": 0.7351,
+      "confusion_matrix": [
+        [
+          10037,
+          7604
+        ],
+        [
+          966,
+          3497
+        ]
+      ],
+      "name": "HistGradientBoosting",
+      "threshold": 0.52
+    }
+  ]
+}

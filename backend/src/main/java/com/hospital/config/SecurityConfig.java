@@ -42,6 +42,8 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/ai/health", "/api/ai/predict/symptom").permitAll()
+                .requestMatchers("/api/ai/**").hasAnyRole("STAFF", "ADMIN", "DOCTOR")
                 .requestMatchers("/h2-console/**").permitAll()
                 .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/api-docs/**", "/v3/api-docs/**").permitAll()
                 .requestMatchers("/ws/**").permitAll()

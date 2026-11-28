@@ -8,7 +8,9 @@ import {
   Calendar as CalendarIcon,
   RefreshCw,
   TrendingUp,
-  Hospital
+  Hospital,
+  Brain,
+  Sparkles
 } from 'lucide-react';
 import {
   PieChart, Pie, Cell, BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
@@ -32,6 +34,10 @@ const AnalyticsPage = () => {
   const [departmentData, setDepartmentData] = useState([]);
   const [hourlyData, setHourlyData] = useState([]);
   const [departmentTableData, setDepartmentTableData] = useState([]);
+  const [aiHealth, setAiHealth] = useState(null);
+  const [simForm, setSimForm] = useState({ age: 28, lead_time_days: 10, sms_received: 0, gender: 'F' });
+  const [simResult, setSimResult] = useState(null);
+  const [simLoading, setSimLoading] = useState(false);
 
   const COLORS = ['#2563EB', '#0D9488', '#7C3AED', '#F59E0B', '#EF4444', '#10B981'];
 
@@ -42,13 +48,17 @@ const AnalyticsPage = () => {
   const fetchAnalyticsData = async () => {
     setLoading(true);
     try {
-      const [dashRes, revRes, hourlyRes, deptRes, docsRes] = await Promise.allSettled([
+      const [dashRes, revRes, hourlyRes, deptRes, docsRes, aiRes] = await Promise.allSettled([
         api.get('/api/stats/dashboard'),
         api.get('/api/stats/revenue/weekly'),
         api.get(`/api/stats/appointments/hourly?date=${selectedDate}`),
         api.get('/api/stats/departments/stats'),
-        api.get('/api/doctors')
+        api.get('/api/doctors'),
+        api.get('/api/ai/health')
       ]);
+      if (aiRes.status === 'fulfilled') {
+        setAiHealth(aiRes.value?.data || aiRes.value);
+      }
 
       const dashData = dashRes.status === 'fulfilled' ? (dashRes.value?.data || dashRes.value) : null;
       const todayAppts = Number(dashData?.todayAppointments ?? 0);
@@ -331,6 +341,121 @@ const AnalyticsPage = () => {
               </tbody>
             </table>
           </div>
+        </div>
+      </div>
+
+      {/* Row 4: Kaggle Machine Learning Models Status & Simulator */}
+      <div className="bg-white rounded-3xl shadow-xs border border-slate-200/80 p-6 space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-2xl">
+              <Brain className="w-5 h-5" />
+            </div>
+            <div>
+              <h2 className="text-base font-black text-slate-900">Trung Tâm Mô Hình AI & Học Máy Kaggle</h2>
+              <p className="text-xs text-slate-500">Tích hợp trực tiếp dịch vụ Python FastAPI huấn luyện trên dữ liệu y tế Kaggle</p>
+            </div>
+          </div>
+          <span className={`px-3 py-1 rounded-full text-xs font-bold border self-start sm:self-center ${
+            aiHealth?.status === 'UP'
+              ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+              : 'bg-amber-50 text-amber-700 border-amber-200'
+          }`}>
+            {aiHealth?.status === 'UP' ? 'Python AI Đang Hoạt Động (Cổng 8000)' : 'Python AI Ngoại Tuyến'}
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/70 space-y-2">
+            <div className="text-xs font-bold text-indigo-700 uppercase">Mô hình 1 · Dự đoán bỏ hẹn No-Show</div>
+            <div className="text-sm font-black text-slate-900">
+              {aiHealth?.noshow_model?.algorithm || 'RandomForestClassifier'} · Tập dữ liệu {aiHealth?.noshow_model?.samples?.toLocaleString('vi-VN') || '110.521'} lượt khám
+            </div>
+            <div className="text-xs text-slate-600 flex flex-wrap gap-3">
+              <span>ROC-AUC: <strong className="text-slate-900">{aiHealth?.noshow_model?.metrics?.roc_auc ?? '0.7352'}</strong></span>
+              <span>Recall: <strong className="text-slate-900">{aiHealth?.noshow_model?.metrics?.recall ?? '0.7461'}</strong></span>
+              <span>F1: <strong className="text-slate-900">{aiHealth?.noshow_model?.metrics?.f1 ?? '0.4498'}</strong></span>
+            </div>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/70 space-y-2">
+            <div className="text-xs font-bold text-teal-700 uppercase">Mô hình 2 · Phân loại triệu chứng & Chuyên khoa</div>
+            <div className="text-sm font-black text-slate-900">
+              {aiHealth?.symptom_model?.algorithm || 'MultinomialNB'} · {aiHealth?.symptom_model?.unique_diseases || '41'} nhóm bệnh · {aiHealth?.symptom_model?.samples?.toLocaleString('vi-VN') || '4.920'} mẫu Kaggle
+            </div>
+            <div className="text-xs text-slate-600 flex flex-wrap gap-3">
+              <span>Accuracy: <strong className="text-slate-900">{((aiHealth?.symptom_model?.metrics?.accuracy ?? 1) * 100).toFixed(1)}%</strong></span>
+              <span>Macro-F1: <strong className="text-slate-900">{aiHealth?.symptom_model?.metrics?.macro_f1 ?? '1.0000'}</strong></span>
+            </div>
+          </div>
+        </div>
+
+        {/* Mini No-Show Simulator */}
+        <div className="p-4 rounded-2xl bg-indigo-50/50 border border-indigo-200/70 space-y-3">
+          <div className="text-xs font-black text-indigo-900 flex items-center gap-1.5">
+            <Sparkles className="w-4 h-4 text-indigo-600" />
+            <span>Mô phỏng dự đoán xác suất bỏ hẹn trực tiếp từ mô hình RandomForest Kaggle</span>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 items-end">
+            <div>
+              <label className="block text-[11px] font-bold text-slate-600 mb-1">Tuổi bệnh nhân</label>
+              <input type="number" min="0" max="110" value={simForm.age}
+                onChange={e => setSimForm({ ...simForm, age: Number(e.target.value) })}
+                className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-xl font-bold" />
+            </div>
+            <div>
+              <label className="block text-[11px] font-bold text-slate-600 mb-1">Đặt trước (ngày)</label>
+              <input type="number" min="0" max="90" value={simForm.lead_time_days}
+                onChange={e => setSimForm({ ...simForm, lead_time_days: Number(e.target.value) })}
+                className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-xl font-bold" />
+            </div>
+            <div>
+              <label className="block text-[11px] font-bold text-slate-600 mb-1">Giới tính</label>
+              <select value={simForm.gender}
+                onChange={e => setSimForm({ ...simForm, gender: e.target.value })}
+                className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-xl font-bold">
+                <option value="F">Nữ</option>
+                <option value="M">Nam</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-[11px] font-bold text-slate-600 mb-1">Nhận SMS nhắc</label>
+              <select value={simForm.sms_received}
+                onChange={e => setSimForm({ ...simForm, sms_received: Number(e.target.value) })}
+                className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-xl font-bold">
+                <option value={1}>Đã gửi SMS</option>
+                <option value={0}>Chưa gửi</option>
+              </select>
+            </div>
+            <button
+              type="button"
+              disabled={simLoading}
+              onClick={async () => {
+                setSimLoading(true);
+                try {
+                  const res = await api.post('/api/ai/predict/no-show', simForm);
+                  setSimResult(res?.data || res);
+                } finally {
+                  setSimLoading(false);
+                }
+              }}
+              className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-black transition-colors disabled:opacity-60"
+            >
+              {simLoading ? 'Đang tính...' : 'Chạy Dự Báo'}
+            </button>
+          </div>
+          {simResult && (
+            <div className="p-3 bg-white rounded-xl border border-indigo-200 text-xs flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <span className="font-bold text-slate-700">Xác suất vắng mặt: </span>
+                <span className="font-black text-indigo-700 text-sm">{simResult.probability_percent}%</span>
+                <span className="ml-2 px-2 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-700">
+                  {simResult.risk_label_vi}
+                </span>
+              </div>
+              <span className="text-slate-500">{simResult.recommended_action}</span>
+            </div>
+          )}
         </div>
       </div>
     </div>

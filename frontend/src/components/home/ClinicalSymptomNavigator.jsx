@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from '../../api/axios';
 import { 
   Sparkles, 
   Search, 
@@ -151,15 +152,64 @@ const ClinicalSymptomNavigator = () => {
   const [analyzing, setAnalyzing] = useState(false);
   const [result, setResult] = useState(null);
 
-  const analyzeSymptom = (text) => {
+  const analyzeSymptom = async (text) => {
     if (!text || !text.trim()) return;
     setAnalyzing(true);
     setResult(null);
 
+    const DEPT_CODE_TO_ID = { NOI: 1, NGOAI: 2, TMH: 3, RHM: 4, MAT: 5, DA: 6 };
+    const DEPT_DOCTOR = {
+      NOI: 'BS. Nguyễn Văn An',
+      NGOAI: 'BS. Trần Thị Bình',
+      TMH: 'BS. Lê Hoàng Cường',
+      RHM: 'BS. Phạm Minh Đức',
+      MAT: 'BS. Võ Minh Khôi',
+      DA: 'BS. Đặng Thu Thảo',
+    };
+
+    try {
+      const apiRes = await api.post('/api/ai/predict/symptom', { symptomText: text });
+      const ai = apiRes?.data || apiRes;
+      if (ai && ai.recommended_department_code) {
+        const deptCode = ai.recommended_department_code;
+        const urgencyColor =
+          ai.urgency_level === 'HIGH'
+            ? 'bg-rose-100 text-rose-800 border-rose-200 animate-pulse'
+            : ai.urgency_level === 'MEDIUM'
+            ? 'bg-amber-100 text-amber-800 border-amber-200'
+            : 'bg-blue-100 text-blue-800 border-blue-200';
+        const topPreds = (ai.top_predictions || []).map(
+          (p) => `${p.disease_vi || p.disease_en} (${Math.round((p.probability || 0) * 100)}%)`
+        );
+        setResult({
+          category:
+            ai.aiSource === 'KAGGLE_PYTHON_AI'
+              ? `Mô hình AI Kaggle · ${ai.model_name || 'ML Classifier'}`
+              : 'Định hướng lâm sàng MediCare',
+          deptId: DEPT_CODE_TO_ID[deptCode] || 1,
+          deptCode,
+          deptName: ai.recommended_department_name || 'Khoa Nội Tổng Quát',
+          roomCode: ai.recommended_room_hint || 'R101 - R102',
+          urgencyColor,
+          urgencyText: ai.urgency_text || 'Khám chuyên khoa theo hẹn',
+          possibleConditions:
+            topPreds.length > 0 ? topPreds : ['Cần bác sĩ lâm sàng thăm khám trực tiếp'],
+          recommendedDoctor: DEPT_DOCTOR[deptCode] || 'BS. Nguyễn Văn An',
+          advice: Array.isArray(ai.precautions)
+            ? ai.precautions.join(' · ')
+            : 'Bạn nên đặt lịch khám sớm để bác sĩ kiểm tra trực tiếp.',
+          matchedSymptoms: ai.matched_symptoms || [],
+          aiSource: ai.aiSource,
+        });
+        setAnalyzing(false);
+        return;
+      }
+    } catch (err) {
+      console.warn('Fallback sang từ điển nội bộ:', err?.message);
+    }
+
     setTimeout(() => {
       const lower = text.toLowerCase();
-      
-      // Match keywords
       let bestMatch = null;
       let maxScore = 0;
 
@@ -176,7 +226,6 @@ const ClinicalSymptomNavigator = () => {
         }
       }
 
-      // Default fallback match if no specific keyword matched
       if (!bestMatch) {
         bestMatch = {
           keywords: ['tổng quát'],
@@ -189,14 +238,14 @@ const ClinicalSymptomNavigator = () => {
           urgencyText: 'Khám sàng lọc tổng quát',
           urgencyColor: 'bg-blue-100 text-blue-800 border-blue-200',
           possibleConditions: ['Cần bác sĩ lâm sàng thăm khám trực tiếp để xác định chuyên khoa'],
-          recommendedDoctor: 'BS. CKI Trần Văn Nam',
+          recommendedDoctor: 'BS. Nguyễn Văn An',
           advice: 'Bạn nên đến khám tại Phòng Nội Tổng Quát để bác sĩ làm các xét nghiệm sàng lọc bước đầu.'
         };
       }
 
       setResult(bestMatch);
       setAnalyzing(false);
-    }, 600);
+    }, 300);
   };
 
   const handleChipClick = (chipText) => {

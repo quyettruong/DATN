@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Calendar, Search, CheckCircle2, XCircle, Clock, Filter, RefreshCw, UserCheck
+  Calendar, Search, CheckCircle2, XCircle, Clock, Filter, RefreshCw, UserCheck, Sparkles
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import dayjs from 'dayjs';
@@ -36,6 +36,23 @@ export default function StaffAppointmentsPage() {
   const [search, setSearch] = useState('');
   const [dateFilter, setDateFilter] = useState('');
   const [actionLoading, setActionLoading] = useState(null);
+  const [noShowPredictions, setNoShowPredictions] = useState({});
+
+  const handlePredictNoShow = async (id) => {
+    setActionLoading(id + '_ai');
+    try {
+      const res = await api.get(`/api/ai/appointments/${id}/no-show`);
+      const data = res?.data || res;
+      if (data) {
+        setNoShowPredictions(prev => ({ ...prev, [id]: data }));
+        toast.success(`Dự báo AI: Nguy cơ bỏ hẹn ${data.probability_percent}%`);
+      }
+    } catch {
+      toast.error('Không thể gọi mô hình AI dự đoán No-Show');
+    } finally {
+      setActionLoading(null);
+    }
+  };
 
   const fetchAppointments = useCallback(async () => {
     setLoading(true);
@@ -199,7 +216,7 @@ export default function StaffAppointmentsPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-100">
-                  {['Mã LH', 'Bệnh nhân', 'Bác sĩ phụ trách', 'Chuyên khoa', 'Ngày khám', 'Giờ hẹn', 'Trạng thái', 'Thao tác'].map(h => (
+                  {['Mã LH', 'Bệnh nhân', 'Bác sĩ phụ trách', 'Chuyên khoa', 'Ngày khám', 'Giờ hẹn', 'Trạng thái', 'AI Bỏ hẹn', 'Thao tác'].map(h => (
                     <th key={h} className="px-4 py-3.5 text-left text-[11px] font-bold text-slate-500 uppercase tracking-wider whitespace-nowrap">{h}</th>
                   ))}
                 </tr>
@@ -236,6 +253,30 @@ export default function StaffAppointmentsPage() {
                         <span className={`inline-flex px-2.5 py-0.5 rounded-full text-[11px] font-bold border whitespace-nowrap ${statusConf.color}`}>
                           {statusConf.label}
                         </span>
+                      </td>
+                      <td className="px-4 py-3.5">
+                        {noShowPredictions[apt.id] ? (
+                          <div className="space-y-0.5" title={noShowPredictions[apt.id].recommended_action}>
+                            <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold border whitespace-nowrap ${
+                              noShowPredictions[apt.id].risk_level === 'HIGH'
+                                ? 'bg-rose-50 text-rose-700 border-rose-200'
+                                : noShowPredictions[apt.id].risk_level === 'MEDIUM'
+                                ? 'bg-amber-50 text-amber-700 border-amber-200'
+                                : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                            }`}>
+                              {noShowPredictions[apt.id].probability_percent}% · {noShowPredictions[apt.id].risk_level === 'HIGH' ? 'Cao' : noShowPredictions[apt.id].risk_level === 'MEDIUM' ? 'TB' : 'Thấp'}
+                            </span>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => handlePredictNoShow(apt.id)}
+                            disabled={actionLoading === apt.id + '_ai'}
+                            className="inline-flex items-center gap-1 px-2.5 py-1 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-xl text-[11px] font-bold hover:bg-indigo-100 disabled:opacity-60 transition-colors whitespace-nowrap"
+                          >
+                            <Sparkles size={12} />
+                            <span>{actionLoading === apt.id + '_ai' ? '...' : 'Dự báo AI'}</span>
+                          </button>
+                        )}
                       </td>
                       <td className="px-4 py-3.5">
                         <div className="flex gap-2">

@@ -213,7 +213,7 @@ const SystemSettingsPage = () => {
           <InfoRow label="Tên hệ thống" value="MediCare – Hospital Flow Platform" />
           <InfoRow label="Chế độ hàng đợi hiện hành" value={systemMeta.activeQueueMode} mono />
           <InfoRow label="Backend Runtime" value={`Spring Boot 3 · Java ${systemMeta.javaVersion}`} mono />
-          <InfoRow label="Cơ sở dữ liệu" value="PostgreSQL" mono />
+          <InfoRow label="Cơ sở dữ liệu" value="Microsoft SQL Server 2025 Express" mono />
           <InfoRow label="Thời điểm khởi chạy" value={systemMeta.startupTime || 'Đang hoạt động'} />
           <div className="mt-3 flex items-center gap-2 bg-green-50 rounded-lg px-3 py-2">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />

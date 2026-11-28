@@ -9,6 +9,7 @@ Hệ thống thông tin bệnh viện thu nhỏ (**Mini HIS / EMR / Queue Manage
 | Tầng hệ thống | Công nghệ & Thư viện chính |
 | :--- | :--- |
 | **Backend API** | Java 17, Spring Boot 3.2.5, Spring Security 6 (JWT + RBAC), Spring Data JPA / Hibernate, Spring WebSocket, Springdoc OpenAPI (Swagger UI) |
+| **AI Microservice** | Python 3.12, FastAPI, Uvicorn, scikit-learn (RandomForest & MultinomialNB), Pandas, Joblib (huấn luyện trực tiếp từ Kaggle Datasets) |
 | **Cơ sở dữ liệu** | Microsoft SQL Server (quản trị qua SSMS / Azure Data Studio; hỗ trợ H2 In-Memory cho Unit Test độc lập) |
 | **Frontend Web** | React 18, Vite 5 (Code-splitting & `React.lazy`), Zustand, Axios, Tailwind CSS, Recharts, Lucide Icons, `qrcode.react` |
 | **Mobile App (Bệnh nhân)** | Flutter 3.44, Dart 3.12, Provider, Material 3, `qr_flutter`, `shared_preferences`, `intl`, `http` |
@@ -33,6 +34,9 @@ Hệ thống thông tin bệnh viện thu nhỏ (**Mini HIS / EMR / Queue Manage
    - Tiếp nhận mẫu, nhập chỉ số xét nghiệm, cảnh báo kết quả bất thường, tải lên ảnh phim chụp X-quang / Siêu âm / PDF kết quả và tự động đẩy bệnh nhân quay lại hàng đợi ưu tiên (`-R`) gặp Bác sĩ.
 5. **Quản trị Hệ thống (`ADMIN`)**:
    - Bảng điều khiển thống kê thời gian thực (doanh thu, lượt khám, thời gian chờ trung bình), quản lý Người dùng & Phân quyền, Chuyên khoa, Danh mục Thuốc, Danh mục Xét nghiệm, Kho dược và Cấu hình thuật toán hàng đợi (`PRIORITY` / `FIFO`).
+6. **Phân hệ Trí tuệ Nhân tạo Kaggle (`AI/`)**:
+   - **Dự báo bệnh nhân bỏ lịch hẹn (`RandomForest`, ROC-AUC `0.7352`, Recall `74.61%`)**: Huấn luyện trên `110,521` bản ghi Kaggle (`joniarroba/noshowappointments`), cảnh báo trực tiếp tại màn hình Tiếp nhận lịch hẹn và mô phỏng trên trang Phân tích Quản trị.
+   - **Định hướng chuyên khoa theo triệu chứng (`MultinomialNB`, Accuracy `100%`)**: Huấn luyện trên `4,920` bản ghi (`41` bệnh lý, `132` triệu chứng từ `itachi9604/disease-symptom-description-dataset`), nhận mô tả tiếng Việt tại Trang chủ và gợi ý chuyên khoa kèm khuyến nghị.
 
 ---
 
@@ -40,6 +44,7 @@ Hệ thống thông tin bệnh viện thu nhỏ (**Mini HIS / EMR / Queue Manage
 
 ### Yêu cầu môi trường
 - **JDK 17+** và **Maven 3.9+** (đã tích hợp sẵn Maven portable tại `tools/apache-maven-3.9.6`)
+- **Python 3.10+** (cho phân hệ `AI/`)
 - **Node.js 18+** và **npm**
 - **Microsoft SQL Server** (SSMS hoặc Azure Data Studio)
 
@@ -54,6 +59,21 @@ cd backend
 ..\tools\apache-maven-3.9.6\bin\mvn.cmd spring-boot:run
 ```
 - Tài liệu API trực quan (Swagger UI): `http://localhost:8080/swagger-ui.html`
+
+### Bước 2.5: Khởi chạy Dịch vụ AI Python FastAPI (Cổng `8000`)
+Phân hệ `AI/` đã bao gồm sẵn mô hình huấn luyện trên Kaggle tại `AI/models/`:
+```powershell
+cd AI
+py -m pip install -r requirements.txt
+py app.py
+```
+- Để tải lại dữ liệu Kaggle và huấn luyện lại toàn bộ mô hình:
+```powershell
+py download_kaggle_data.py
+py train_noshow_model.py
+py train_symptom_model.py
+```
+- API AI nội bộ chạy tại: `http://127.0.0.1:8000/health` (được Spring Boot tự động kết nối qua `/api/ai/**`).
 
 ### Bước 3: Khởi chạy Frontend (Cổng `5173`)
 ```powershell
